@@ -53,7 +53,7 @@ namespace EnesKARTALDigiAPI.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 user.Token = tokenHandler.WriteToken(token);
 
-                user = userRepository.UpdateAsync(user).Result;
+                userRepository.Update(user);
 
                 var result = new
                 {
