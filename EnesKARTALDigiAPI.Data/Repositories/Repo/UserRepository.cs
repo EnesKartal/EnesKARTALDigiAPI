@@ -1,8 +1,6 @@
 ﻿using EnesKARTALDigiAPI.Data.Models;
 using EnesKARTALDigiAPI.Data.Repositories.Infra;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace EnesKARTALDigiAPI.Data.Repositories.Repo
 {
@@ -12,9 +10,26 @@ namespace EnesKARTALDigiAPI.Data.Repositories.Repo
         {
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public User GetUserById(int id)
         {
-            return await GetAll().FirstOrDefaultAsync(x => x.Id == id);
+            return GetAll().Select(x => new User
+            {
+                Id = x.Id,
+                Email = x.Email,
+                Token = x.Token,
+                Password = "" //güvenlik nedeniyle göndermedim.
+            }).ToList().FirstOrDefault(x => x.Id == id);
+        }
+
+        public IQueryable<User> GetAllUserWithoutPass()
+        {
+            return GetAll().Select(x => new User
+            {
+                Id = x.Id,
+                Email = x.Email,
+                Token = x.Token,
+                Password = "" //güvenlik nedeniyle göndermedim.
+            });
         }
 
         public User GetUserByName(string name)

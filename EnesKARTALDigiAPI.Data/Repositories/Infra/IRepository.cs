@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace EnesKARTALDigiAPI.Data.Repositories.Infra
 {
@@ -9,5 +10,7 @@ namespace EnesKARTALDigiAPI.Data.Repositories.Infra
         bool Add(TEntity entity);
         bool Update(TEntity entity);
         bool Delete(TEntity entity);
+        IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> where);
+
     }
 }

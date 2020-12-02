@@ -1,11 +1,12 @@
 ﻿using EnesKARTALDigiAPI.Data.Models;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace EnesKARTALDigiAPI.Data.Repositories.Infra
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<User> GetUserByIdAsync(int id);
+        User GetUserById(int id);
         User GetUserByName(string name);
+        IQueryable<User> GetAllUserWithoutPass();
     }
 }

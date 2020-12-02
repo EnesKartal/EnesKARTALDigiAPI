@@ -2,6 +2,7 @@
 using EnesKARTALDigiAPI.Data.Repositories.Infra;
 using EnesKARTALDigiAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace EnesKARTALDigiAPI.Controllers
 {
@@ -9,13 +10,11 @@ namespace EnesKARTALDigiAPI.Controllers
     public class CommentController : BaseController
     {
         readonly ICommentRepository commentRepository;
-        ConfigHelper Config;
         public CommentController(ICacheManager cacheManager,
            ICommentRepository commentRepository,
            ConfigHelper config) : base(cacheManager)
         {
             this.commentRepository = commentRepository;
-            this.Config = config;
         }
 
         // GET api/comment
@@ -38,6 +37,18 @@ namespace EnesKARTALDigiAPI.Controllers
                 return NotFound();
 
             return Ok(comment);
+        }
+
+        // GET api/comment/filter?query=mytitle
+        [HttpGet("Filter")]
+        public IActionResult Filter(string query)
+        {
+            var data = commentRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(query))
+                data = data.Where(x => x.Description.ToLower().Contains(query));
+
+            return Ok(data);
         }
 
         // POST api/comment

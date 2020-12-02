@@ -2,6 +2,7 @@
 using EnesKARTALDigiAPI.Data.Repositories.Infra;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EnesKARTALDigiAPI.Data.Repositories.Repo
@@ -85,6 +86,11 @@ namespace EnesKARTALDigiAPI.Data.Repositories.Repo
             {
                 throw new Exception($"{nameof(entity)} silinemedi: {ex.Message}");
             }
+        }
+
+        public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> where)
+        {
+            return digiBlogDBContext.Set<TEntity>().Where(where);
         }
     }
 }

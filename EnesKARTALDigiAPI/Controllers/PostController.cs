@@ -2,6 +2,8 @@
 using EnesKARTALDigiAPI.Data.Repositories.Infra;
 using EnesKARTALDigiAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace EnesKARTALDigiAPI.Controllers
 {
@@ -21,6 +23,18 @@ namespace EnesKARTALDigiAPI.Controllers
         public IActionResult Get()
         {
             return Ok(postRepository.GetAllPosts());
+        }
+
+        // GET api/post/filter?query=mytitle
+        [HttpGet("Filter")]
+        public IActionResult Filter(string query)
+        {
+            var data = postRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(query))
+                data = data.Where(x => x.Title.ToLower().Contains(query) || x.SubTitle.ToLower().Contains(query) || x.Description.ToLower().Contains(query));
+
+            return Ok(data.Include(x => x.Comments));
         }
 
         // GET api/post/5

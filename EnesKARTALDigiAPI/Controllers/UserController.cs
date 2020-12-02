@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using EnesKARTALDigiAPI.Data.Repositories.Infra;
 using EnesKARTALDigiAPI.Helpers;
 using EnesKARTALDigiAPI.Models;
+using EnesKARTALDigiAPI.Data.Models;
+using System.Linq;
 
 namespace EnesKARTALDigiAPI.Controllers
 {
@@ -68,6 +70,105 @@ namespace EnesKARTALDigiAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        // GET api/user
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(userRepository.GetAllUserWithoutPass());
+        }
+
+        // GET api/user/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int? id)
+        {
+            if (!id.HasValue)
+                return BadRequest();
+
+            var user = userRepository.GetUserById(id.Value);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+        // GET api/user/filter?query=mytitle
+        [HttpGet("Filter")]
+        public IActionResult Filter(string query)
+        {
+            var data = userRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(query))
+                data = data.Where(x => x.Email.ToLower().Contains(query));
+
+            return Ok(data);
+        }
+
+        // POST api/user
+        [HttpPost]
+        public IActionResult Post(User user)
+        {
+            if (!ModelState.IsValid || user == null)
+                return BadRequest();
+
+            user.Password = AccountHelper.HashPassword(user.Password, Config.SecretKey);
+            if (userRepository.Add(user))
+            {
+                user.Password = ""; //Güvenlik nedeniyle
+                return Ok(user);
+            }
+
+            return BadRequest();
+        }
+
+        // PUT api/user/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int? id, User user)
+        {
+            if (!id.HasValue)
+                return BadRequest();
+
+            if (!ModelState.IsValid || user == null)
+                return BadRequest();
+
+            var oldUser = userRepository.GetUserById(id.Value);
+
+            if (oldUser == null)
+                return NotFound();
+
+            user.Id = oldUser.Id;
+            user.Password = AccountHelper.HashPassword(user.Password, Config.SecretKey);
+
+            if (userRepository.Update(user))
+            {
+                user.Password = ""; //Güvenlik nedeniyle
+                return Ok(user);
+            }
+
+            return BadRequest();
+        }
+
+        // DELETE api/user/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int? id)
+        {
+            if (!id.HasValue)
+                return BadRequest();
+
+            var user = userRepository.GetUserById(id.Value);
+
+            if (user == null)
+                return NotFound();
+
+            if (userRepository.Delete(user))
+            {
+                user.Password = "";//Güvenlik nedeniyle
+                return Ok(user);
+            }
+
+            return BadRequest();
         }
     }
 }
