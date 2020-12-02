@@ -35,19 +35,22 @@ namespace EnesKARTALDigiAPI
         }
 
         public IConfiguration Configuration { get; }
+        public ConfigHelper Config { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            Config = new ConfigHelper();
+            Configuration.Bind("Config", Config);
+            services.AddSingleton(Config);
 
             services.AddMvc();
 
             services.AddControllers();
 
-            services.AddDbContext<DigiBlogDBContext>(o => o.UseSqlServer(Configuration["Database:ConnectionString"])
+            services.AddDbContext<DigiBlogDBContext>(o => o.UseSqlServer(Config.ConnectionString)
                 .UseLoggerFactory(MyLoggerFactory)
-
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-                        );
+                );
 
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IUserRepository, UserRepository>();
