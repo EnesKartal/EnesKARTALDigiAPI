@@ -133,3 +133,5 @@ USE [master]
 GO
 ALTER DATABASE [DigiBlogDB] SET  READ_WRITE 
 GO
+  INSERT INTO [DigiBlogDB].[dbo].[User] (Email,Password) VALUES ('eneskartal117@gmail.com','BD15F635C9CB57E96347D8F73DD9A1A766E5ADB2C59F160416DF1F15F7706CA0')
+  --Şifrenin Decrypted hali : digiturk2020
