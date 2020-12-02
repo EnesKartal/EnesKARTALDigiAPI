@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnesKARTALDigiAPI", "EnesKARTALDigiAPI\EnesKARTALDigiAPI.csproj", "{DF325B5D-A858-4FC9-AC06-69B6D3C9586B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnesKARTALDigiAPI", "EnesKARTALDigiAPI\EnesKARTALDigiAPI.csproj", "{DF325B5D-A858-4FC9-AC06-69B6D3C9586B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnesKARTALDigiAPI.Data", "..\EnesKARTALDigiAPI.Data\EnesKARTALDigiAPI.Data.csproj", "{A5AB0C81-9FB3-4A16-A703-023075B9CE49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnesKARTALDigiAPI.Data", "EnesKARTALDigiAPI.Data\EnesKARTALDigiAPI.Data.csproj", "{BF133397-965D-4883-88F7-AED79D076535}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{DF325B5D-A858-4FC9-AC06-69B6D3C9586B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF325B5D-A858-4FC9-AC06-69B6D3C9586B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF325B5D-A858-4FC9-AC06-69B6D3C9586B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A5AB0C81-9FB3-4A16-A703-023075B9CE49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5AB0C81-9FB3-4A16-A703-023075B9CE49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5AB0C81-9FB3-4A16-A703-023075B9CE49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A5AB0C81-9FB3-4A16-A703-023075B9CE49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF133397-965D-4883-88F7-AED79D076535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF133397-965D-4883-88F7-AED79D076535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF133397-965D-4883-88F7-AED79D076535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF133397-965D-4883-88F7-AED79D076535}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
